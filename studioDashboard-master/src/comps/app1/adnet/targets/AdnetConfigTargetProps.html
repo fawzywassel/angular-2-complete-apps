@@ -1,0 +1,100 @@
+<div *ngIf="targetModel">
+    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+    <h3>name: {{targetModel?.getName()}}</h3>
+    <h4>customer id: {{targetModel?.getCustomerId()}}</h4>
+    <div class="row">
+        <form [formGroup]="contGroup">
+            <input input type="hidden" [formControl]="contGroup.controls['locationLat']">
+            <input input type="hidden" [formControl]="contGroup.controls['locationLng']">
+            <div>
+                <div class="col-xs-12 box">
+                    <hr/>
+                    <div class="inner userGeneral">
+                        <div class="panel panel-default tallPanel">
+                            <div class="panel-heading">station ad network activation
+                                <i class="fa fa-cog pull-right"></i>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    enabled
+                                    <div class="material-switch pull-right">
+                                        <input (change)="onChangeSharing(enabled.checked)"
+                                               formControlName="enabled"
+                                               id="enabled" #enabled
+                                               name="enabled" type="checkbox"/>
+                                        <label for="enabled" class="label-primary"></label>
+                                    </div>
+                                </li>
+                                <!--<li class="list-group-item">-->
+                                <!--Timezone-->
+                                <!--<div class="pull-right">-->
+                                <!--<label>GMT+0 (ST)</label>-->
+                                <!--</div>-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div *ngIf="!isWebLocation()" class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                        <input [formControl]="contGroup.controls['targetDomain']" type="text" class="form-control"
+                               placeholder="domain">
+                    </div>
+                    <div *ngIf="isWebLocation()" class="input-group">
+                        <label>Timezone: GMT+0 (ST)</label>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-tv"></i></span>
+                        <input [formControl]="contGroup.controls['label']" type="text" class="form-control"
+                               placeholder="station name">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                        <div class="btn-group" role="group">
+
+                            <select [formControl]="contGroup.controls['rateId']" class="form-control">
+                                <option></option>
+                                <option *ngFor="let item of filteredRates; let index = index"
+                                        [value]="getRateId(item)"
+                                        [selected]="getSelectedRate(item)">
+                                    {{item.getName()}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                        <div class="btn-group" role="group">
+                            <select [formControl]="contGroup.controls['targetType']" class="form-control">
+                                <option value="0">mode: station</option>
+                                <option value="1">mode: mobile</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                        <input [formControl]="contGroup.controls['url']" type="text" class="form-control"
+                               placeholder="web address">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <textarea [formControl]="contGroup.controls['keys']" style="height: 78px" type="text"
+                                  class="form-control" value="" placeholder="searchable keywords"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-quote-left"></i></span>
+                        <textarea [formControl]="contGroup.controls['comments']" style="height: 78px" type="text"
+                                  class="form-control" value="" placeholder="comments"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

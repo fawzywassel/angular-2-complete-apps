@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "inlineSources": true,
+    "module": "system",
+    "moduleResolution": "classic",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "sourceMap": true,
+    "noResolve": false,
+    "rootDirs": ["."],
+    "baseUrl": "./jspm_packages",
+    "paths": {
+      "@angular/core": [
+        "npm/@angular/core@2.0.0-rc.1"
+      ],
+      "rxjs/*": [
+        "npm/rxjs@5.0.0-beta.6/*"
+      ]
+    }
+  },
+  "filesGlob": [
+    "./**/*.ts",
+    "!./node_modules",
+    "/src/typings/app.d.ts"
+  ],
+  "exclude": [
+    "src/public/world_data.ts",
+    "temp",
+    "node_modules",
+    "node_modules/*",
+    "jspm_packages",
+    "typings",
+    "dist",
+    "typings/*",
+    "typings/main.d.ts",
+    "typings/main"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": true
+}

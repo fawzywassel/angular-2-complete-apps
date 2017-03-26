@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-xs-3">
+	 <div class="users">
+
+	 </div>
+
+	 <!--(selected)="onFilteredSelection()" (iconClicked)="onShowUserInfo($event)" [contentId]="getBusinessesId()" [icon]="'fa-user'" "-->
+	 <simplelist *ngIf="orderList" #simplelist [list]="orderList" (selected)="onSelection()" [content]="getContent" ></simplelist>
+	 <Loading *ngIf="!orderList" [size]="'50px'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+
+  <div class="col-xs-9 userView">
+	 <OrderDetails #orderList *ngIf="orderList" [onSelectedOrder]="selectedOrder"></OrderDetails>
+	 <Loading *ngIf="!orderList" [size]="'50px'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+</div>

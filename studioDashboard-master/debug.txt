@@ -1,0 +1,13 @@
+=========================
+to setup debug end points
+=========================
+
+- dash_hot
+http://localhost:9089/src/public/index.html
+
+- dash_js
+http://localhost:8080/src/public/index.html
+
+- dash_rl
+https://secure.digitalsignage.com/public/index.html#/App1/Dashboard
+

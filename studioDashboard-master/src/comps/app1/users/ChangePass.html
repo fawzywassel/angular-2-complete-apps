@@ -1,0 +1,25 @@
+<form [formGroup]="notesForm" (ngSubmit)="onSubmitted(notesForm.value)">
+    <div class="row">
+        <div class="inner userGeneral tallPanel">
+            <div class="panel panel-default">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div *ngIf="withUserInput">
+                            <input type="text" class="longInput form-control" placeholder="existing user name" required formControlName="userName">
+                            <input type="password" class="longInput form-control" placeholder="existing password" required formControlName="userPass">
+                        </div>
+                        <div formGroupName="matchingPassword" [class.invalid]="passwordGroup.touched && !passwordGroup.valid">
+                            <div *ngIf="!passwordGroup.valid" class="alert alert-warning alert-dismissible" role="alert"> needs matching password 4+ characters
+                            </div>
+                            <input required id="password" class="longInput form-control" placeholder="password (4+ characters)" type="password" formControlName="password">
+                            <input required id="confirmPassword" class="longInput form-control" placeholder="password again" type="password" formControlName="confirmPassword">
+                        </div>
+                        <!--<p>Valid?: {{notesForm.valid}}</p>-->
+                        <!--<pre>{{notesForm.value | json}}</pre>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="_showSubmit" type="submit" class="btn btn-default" [disabled]="!notesForm.valid">Submit</button>
+</form>

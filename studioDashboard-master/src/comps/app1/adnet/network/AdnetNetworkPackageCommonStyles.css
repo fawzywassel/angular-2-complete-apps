@@ -1,0 +1,49 @@
+.list-group-item {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 3px 6px 3px 6px;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.calcLeftPadding {
+    padding-left: calc(25%);
+}
+
+.input-group-addon {
+    width: 80px !important;
+}
+.greyish {
+    background-color: #f5f5f5;
+}
+input.ng-invalid {
+    border-right: 10px solid red;
+}
+.material-switch {
+    position: relative;
+    padding-top: 10px;
+}
+.input-group {
+    padding-top: 10px;
+}
+i {
+    width: 20px;
+}
+
+.centerDays {
+    position: relative;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*.ng-valid[required] {*/
+    /*border-left: 1px solid #42A948; !* green *!*/
+/*}*/
+/*.ng-invalid {*/
+    /*border-left: 5px solid #a94442; !* red *!*/
+    /*background-color: red;*/
+/*}*/

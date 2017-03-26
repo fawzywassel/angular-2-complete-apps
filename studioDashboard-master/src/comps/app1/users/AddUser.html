@@ -1,0 +1,66 @@
+<div class="container">
+  <form [formGroup]="notesForm" (ngSubmit)="onSubmit(notesForm.value)">
+	 <div class="row">
+		<div class="col-xs-6">
+		  <div class="inner userGeneral tallPanel">
+			 <div class="panel panel-default">
+				<div class="panel-heading">
+				  <!--<div *ngIf="businessId == 1">-->
+				  <!--new user under Enterprise account-->
+				  <!--<i class="fa fa-users pull-right"></i>-->
+				  <!--</div>-->
+				  <div *ngIf="mode=='fromSample'">
+					 create new account using sample id: {{businessId}}
+					 <i class="fa fa-user-plus pull-right"></i>
+				  </div>
+				  <div *ngIf="mode=='fromClean'">
+					 account with no pre-configuration
+					 <i class="fa fa-user-plus pull-right"></i>
+				  </div>
+				
+				</div>
+				<ul class="list-group">
+				  <li *ngIf="mode != 'fromUser'" class="list-group-item">
+					 <input type="text" class="longInput form-control" placeholder="business name" required [formControl]="notesForm.controls['businessName']">
+				  </li>
+				  <li class="list-group-item">
+					 <input type="text" class="longInput form-control" placeholder="name" required [formControl]="notesForm.controls['userName']">
+				  </li>
+				  <li class="list-group-item">
+					  <changePass [showSubmit]="false" [businessUser]=""></changePass>
+				  </li>
+				  <li class="list-group-item">
+					 <!--<input type="text" class="longInput form-control" placeholder="privileges" required [formControl]="notesForm.controls['privileges']">-->
+					 <select class="form-control longInput" (change)="onPriveleges($event)" [formControl]="notesForm.controls['privileges']">
+						<option *ngFor="let item of priveleges">
+							{{item.getKey('name')}}
+						</option>
+					 </select>
+				  </li>
+				</ul>
+			 </div>
+		  </div>
+		</div>
+		<div class="col-xs-6">
+		  <div class="inner userGeneral tallPanel">
+			 <div class="panel panel-default">
+				<div class="panel-heading">user access keys
+				  <i class="fa fa-key pull-right"></i>
+				</div>
+				<ul class="list-group">
+				  <li class="list-group-item" *ngFor="let item of accessKeysArr; let index=index">
+					 Key {{index}}
+					 <div class="material-switch pull-right">
+						<!--<input (click)="onKeyChange($event,index)" [(ngModel)]="accessKeys[index]" id="{{item}}" name="{{item}}" type="checkbox"/>-->
+						<input (click)="onKeyChange($event,index)" id="{{item}}" [formControl]="notesForm.controls['accessKeys'+index]" name="{{item}}" type="checkbox"/>
+						<label [attr.for]="item" class="label-default"></label>
+					 </div>
+				  </li>
+				</ul>
+			 </div>
+		  </div>
+		</div>
+	 </div>
+	 <button type="submit" class="btn btn-default" [disabled]="!notesForm.valid">Submit</button>
+  </form>
+</div>

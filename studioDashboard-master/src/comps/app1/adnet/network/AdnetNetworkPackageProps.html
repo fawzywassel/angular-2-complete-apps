@@ -1,0 +1,149 @@
+<div>
+    <form novalidate autocomplete="off" [formGroup]="contGroup">
+        <div class="row">
+            <div class="inner userGeneral">
+                <div class="panel panel-default greyish" style="height: 100%; padding-right: 10px">
+                    <div class="panel-heading">
+                        <small class="release">package properties
+                            <i style="font-size: 1.4em" class="fa fa-cog pull-right"></i>
+                        </small>
+                        <small *ngIf="inDevMode" class="debug">{{me}}</small>
+                    </div>
+                    <div *ngIf="adnetPackageModels">
+                        <ul class="list-group">
+
+                            <li style="padding-top: 10px; padding-bottom: 10px" class="list-group-item">
+                                enabled
+                                <div class="material-switch pull-right">
+                                    <input (change)="onFormChange(customerNetwork1.checked)"
+                                           [formControl]="contGroup.controls['enabled']"
+                                           id="customerNetwork1" #customerNetwork1
+                                           name="customerNetwork1" type="checkbox"/>
+                                    <label for="customerNetwork1" class="label-primary"></label>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+                                     name</span>
+                                    <input [formControl]="contGroup.controls['label']" required
+                                           type="text" pattern="^[a-zA-Z0-9_. ]*$" class="form-control" min="3" max="60"
+                                           placeholder="name">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+                                    mode</span>
+                                    <select [formControl]="contGroup.controls['playMode']" (change)="onModelChanged($event)"  class="form-control">
+                                        <option *ngFor="let item of ['Time sharing','Location based','Assets'];
+                                                let index=index"
+                                                [value]="index"
+                                                [selected]="getOptionField('playMode',index)">
+                                            {{item}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                <span class="input-group-addon">
+                                    channel</span>
+                                    <select [formControl]="contGroup.controls['channel']" class="form-control">
+                                        <option *ngFor="let item of ['CH 0','CH 1', 'CH 2', 'CH 3']; let index=index"
+                                                [value]="index"
+                                                [selected]="getOptionField('channel',index)">
+                                            {{item}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="overflow-x: hidden">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                            start</span>
+                                    <input [formControl]="contGroup.controls['startDate']" required type="date"
+                                           class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="overflow-x: hidden">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                            end</span>
+                                    <input [formControl]="contGroup.controls['endDate']" required type="date"
+                                           class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                            from</span>
+                                    <select [formControl]="contGroup.controls['hourStart']" class="form-control">
+                                        <option *ngFor="let hour of hours; let index=index"
+                                                [value]="index"
+                                                [selected]="getOptionField('hourStart',index)">
+                                            {{hour}}:00
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                            to</span>
+                                    <select [formControl]="contGroup.controls['hourEnd']" class="form-control">
+                                        <option *ngFor="let hour of hours; let index=index"
+                                                [value]="index"
+                                                [selected]="getOptionField('hourEnd',index)">
+                                            {{hour}}:59
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </li>
+                            <br/>
+                            <h5 class="noSpace"> Days of the week</h5>
+                            <li class="list-group-item">
+                                <div class="" style="width: 100%">
+                                    <div class="centerDays input-group" style="width: 245px">
+                                        <div *ngFor="let item of adnetPackageDays;let index = index">
+                                            <div style="width: 30px" class="pull-left noSpace">
+                                                <label style="font-size: 0.7em"
+                                                       class="noSpace">{{numToDay(index)}}</label>
+                                                <br/>
+                                                <input #checkInputs type="checkbox"
+                                                       [checked]="item" value="{{item}}" class="noSpace pull-left"
+                                                       style="margin-right: 2px">
+                                                <!--(click)="onUpdateDays()"-->
+                                                <!--[formControl]="contGroup.controls['daysMask']" required-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <p></p>
+                            <li class="list-group-item">
+                                associate siblings
+                                <div class="material-switch pull-right">
+                                    <input (change)="onFormChange(customerNetwork2.checked)"
+                                           [formControl]="contGroup.controls['autoAddSiblings']"
+                                           id="customerNetwork2" #customerNetwork2
+                                           name="customerNetwork2" type="checkbox"/>
+                                    <label for="customerNetwork2" class="label-primary"></label>
+                                </div>
+                                <input style="margin-top: 10px" [formControl]="contGroup.controls['siblingsKey']"
+                                       type="text" class="form-control"
+                                       placeholder="sibling search string">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<option [value]="rate.getId()" [selected]="getSelectedRate(rate)" *ngFor="let hour of [0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16.17,18,19,20,21,22,23]">-->
+<!--<option *ngFor="let item of stationsFilter['os'] | sortBy">{{item}}</option>-->

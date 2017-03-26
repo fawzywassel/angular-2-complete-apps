@@ -1,0 +1,10 @@
+.rateInput {
+    width: 40px;
+    color: #0f0f0f;
+}
+.btn span.fa {
+    opacity: 0;
+}
+.btn.active span.fa {
+    opacity: 1;
+}

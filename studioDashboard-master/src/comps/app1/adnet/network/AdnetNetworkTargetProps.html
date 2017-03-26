@@ -1,0 +1,58 @@
+<div>
+    <div class="row">
+        <div class="inner userGeneral">
+            <div class="panel panel-default tallPanel">
+                <div class="panel-heading">
+                    <small class="release">target properties
+                        <i style="font-size: 1.4em" class="fa fa-cog pull-right"></i>
+                    </small>
+                    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+                </div>
+                <accordion *ngIf="adnetTargetModel" [closeOthers]="true">
+                    <accordion-group [isOpen]="true" heading="customer">
+                        <ul style="font-size: 0.9em" *ngIf="adnetCustomerModel" class="list-group noSpace">
+                            <li class="list-group-item"><label>feedback:</label>
+                                <div *ngFor="let item of adnetCustomerModel.reviewRateArr(); let index=index">
+                                    <i class="fa {{getReviewIcon(item,index)}} pull-left"></i>
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                            </li>
+                            <li class="list-group-item">contact: {{adnetCustomerModel.getContact()}}</li>
+                            <li class="list-group-item">name: {{adnetCustomerModel.getName()}}</li>
+                            <li class="list-group-item">cell: {{adnetCustomerModel.contactCell()}}</li>
+                            <li class="list-group-item">comments: {{adnetCustomerModel.comments()}}</li>
+                            <li class="list-group-item">website: {{adnetCustomerModel.website()}}</li>
+                        </ul>
+                    </accordion-group>
+                    <accordion-group heading="station">
+                        <ul style="font-size: 0.9em" *ngIf="adnetTargetModel" class="list-group noSpace">
+                            <li class="list-group-item">name: {{adnetTargetModel.getName()}}</li>
+                            <li class="list-group-item">keys: {{adnetTargetModel.getKeys()}}</li>
+                            <li class="list-group-item">comments: {{adnetTargetModel.getComments()}}</li>
+                            <li class="list-group-item">lat: {{adnetCustomerModel.locationLat()}}</li>
+                            <li class="list-group-item">lng: {{adnetCustomerModel.locationLng()}}</li>
+                            <li class="list-group-item">
+                                <button class="btn btn-default" (click)="onShowRates()">show rates</button>
+                            </li>
+                        </ul>
+                    </accordion-group>
+                </accordion>
+            </div>
+        </div>
+    </div>
+
+    <modal #modalRateTable [animation]="true" (onClose)="onModalClose($event)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+                <span class="fa fa-circle" style="font-size: 2em; color: {{selectedStation ? selectedStation.getConnectionIcon('color') : 'white'}}"></span>
+                <!--{{selectedStation ? (selectedStation.getStationName() + ' / id: ' + selectedStation.getStationId() ) : ''}}-->
+            </h4>
+        </modal-header>
+        <modal-body>
+            <RatesTable [readOnly]="true" [hidden]="!adnetRateModel" [rates]="adnetRateModel"></RatesTable>
+        </modal-body>
+        <modal-footer [show-default-buttons]="false"></modal-footer>
+    </modal>
+
+</div>

@@ -1,0 +1,26 @@
+<div style="padding-right: 10px">
+    <div class="row">
+        <div class="inner userGeneral">
+            <div class="panel panel-default greyish" style="height: 100%">
+                <div class="panel-heading">
+                    <small class="release">package view properties
+                        <i style="font-size: 1.4em" class="fa fa-cog pull-right"></i>
+                    </small>
+                    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+                </div>
+                <div *ngIf="adnetPackageModels">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <label>name: {{adnetPackageModels?.getName()}}</label>
+                        </li>
+                        <li class="list-group-item">
+                            <label>customer id: {{adnetPackageModels?.getCustomerId()}}</label>
+                        </li>
+                        <br/>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

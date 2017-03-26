@@ -1,0 +1,52 @@
+<div class="row">
+    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+    <div style="position: relative; top: 10px">
+        <div>
+            <a class="btns"
+               data-toggle="tooltip" data-placement="left" title="Add a new web address location"
+               (click)="onAddWeb($event);$event.preventDefault()" href="#"><span class="fa fa-plus"></span>
+            </a>
+            <a class="btns" (click)="onRemoveWeb($event);$event.preventDefault()" [ngClass]="{disabled: isWebLocation()}" href="#">
+                <span class="fa fa-remove"></span>
+            </a>
+            <a class="btns" (click)="modalSnippet.open('lg'); $event.preventDefault()" [ngClass]="{disabled: isWebLocation()}" href="#">
+                <span class="fa fa-globe"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <simplelist #simplelist [list]="adTargetsFiltered"
+                    [editable]="false"
+                    [iconCallback]="renderIcon"
+                    [multiSelect]="false"
+                    (selected)="onSelection($event)" [content]="getContent"></simplelist>
+    </div>
+</div>
+<modal #modalSnippet [animation]="true">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">
+            <span class="fa fa-user"></span>
+            SignagePlayerJS | code snippet
+        </h4>
+    </modal-header>
+    <modal-body>
+        <pre><code>
+            &lt;Html&gt;
+                &lt;Head&gt;
+                    &lt;script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"&gt;&lt;/script&gt;
+                    &lt;script type="text/javascript" src="https://leda.signage.me/Sdk/adnetSdk.js"&gt;&lt;/script&gt;
+                &lt;/Head&gt;
+                &lt;Body&gt;
+                    &lt;div id="banner1" style="width:300px;height: 300px;"&gt;
+                    &lt;/div&gt;
+                    &lt;script type="text/javascript"&gt;
+                    adNetStart({{selectedAdnetTargetModel?.getId()}}, 0, "", banner1);
+                    &lt;/script&gt;
+                &lt;/Body&gt;
+            &lt;Html&gt;
+        </code>
+            </pre>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+</modal>

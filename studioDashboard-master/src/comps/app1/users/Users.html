@@ -1,0 +1,89 @@
+<div class="row">
+  <small *ngIf="inDevMode" class="debug">{{me}}</small>
+  <div class="col-xs-3">
+    <div class="users">
+      <div (click)="$event.preventDefault()">
+                      <span dropdown (on-toggle)="toggled($event)">
+                      <a class="btns addUser" dropdownToggle href="#"><span class="fa fa-plus"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                          <li *ngFor="let choice of accounts">
+                            <a (click)="onAddUser(choice)" class="dropdown-item" href="#">{{choice}}</a>
+                          </li>
+                        </ul>
+                      </span>
+        <!--<a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessUsersListFiltered || businessUsersListFiltered.size < 1}" href="#"><span class="remove fa fa-remove"></span></a>-->
+        <a (click)="onRemoveUser($event)" href="#"><span class="remove fa fa-remove"></span></a>
+      </div>
+    </div>
+    <simplelist *ngIf="businessesUsers && priveleges" #simplelist [list]="businessesList" (selected)="onFilteredSelection()" (iconClicked)="onShowUserInfo($event)" [contentId]="getBusinessesId()" [icon]="'fa-user'" [content]="getBusinesses"></simplelist>
+    <Loading *ngIf="!businessesUsers || !priveleges" [size]="'100px'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+  <div class="col-xs-9 userView">
+    <UsersDetails #usersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [priveleges]="priveleges"
+                  [business]="businessesListFiltered"
+                  [businesses]="businessUsersListFiltered">
+
+    </UsersDetails>
+    <Loading *ngIf="!businessesUsers || !priveleges" [size]="'100px'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+
+  <modal #modalSamples [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        {{accounts[0]}}
+      </h4>
+    </modal-header>
+    <modal-body>
+      <Samplelist (selected)="onSelectedsample($event)" [samples]="samples"></Samplelist>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+
+  <modal #modalAddUserClean [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        {{accounts[1]}}
+      </h4>
+    </modal-header>
+    <modal-body>
+      <addUser [mode]="'fromClean'" [businessId]="getSelectedBusinessId()" [priveleges]="priveleges"></addUser>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+
+  <modal #modalAddUserSamples [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        {{accounts[0]}}
+      </h4>
+    </modal-header>
+    <modal-body>
+      <addUser [mode]="'fromSample'" [businessId]="getSelectedSampleBusinessId()" [priveleges]="priveleges"></addUser>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+
+  <modal #modalAddUserExisting [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        {{accounts[2]}}
+      </h4>
+    </modal-header>
+    <modal-body>
+      <div class="form-group">
+        <label class="sr-only">Email</label>
+        <input #importUserName class="form-control" spellcheck="false" placeholder="customer name">
+      </div>
+      <div class="form-group">
+        <label class="sr-only">Password</label>
+        <input #importUserPass type="password" name="key" class="form-control" spellcheck="false" placeholder="Password">
+      </div>
+      <input (click)="onImportUser($event)" type="submit" id="btn-login" class="btn" value="import">
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+</div>

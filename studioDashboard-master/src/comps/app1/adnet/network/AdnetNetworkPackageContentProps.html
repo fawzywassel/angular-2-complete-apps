@@ -1,0 +1,114 @@
+<div>
+    <form novalidate autocomplete="off" [formGroup]="contGroup">
+        <div class="row">
+            <div class="inner userGeneral">
+                <div class="panel panel-default greyish" style="height: 100%">
+                    <div class="panel-heading">
+                        <small class="release">content properties
+                            <i style="font-size: 1.4em" class="fa fa-cog pull-right"></i>
+                        </small>
+                        <small *ngIf="inDevMode" class="debug">{{me}}</small>
+                    </div>
+                    <div style="padding-top: 5px" *ngIf="adnetContentModels">
+                        <ul *ngIf="!showResourceOnly" class="list-group">
+                            <li style="padding-bottom: 5px" class="list-group-item">
+                                maintain aspect ratio
+                                <div class="material-switch pull-right">
+                                    <input (change)="onFormChange(customerNetwork2.checked)"
+                                           [formControl]="contGroup.controls['maintainAspectRatio']"
+                                           id="customerNetwork2" #customerNetwork2
+                                           name="customerNetwork2" type="checkbox"/>
+                                    <label for="customerNetwork2" class="label-primary"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">duration</span>
+                                    <InputNumeric
+                                            [defaultValue]="5"
+                                            [round]="true"
+                                            [textholder]="'duration'"
+                                            [step]="1"
+                                            [counterRangeMin]="3"
+                                            [counterRangeMax]="60"
+                                            [formControl]="contGroup.controls['duration']">
+                                    </InputNumeric>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">repetition</span>
+                                    <InputNumeric
+                                            [defaultValue]="1"
+                                            [round]="true"
+                                            [textholder]="'repetitions'"
+                                            [step]="1"
+                                            [counterRangeMin]="1"
+                                            [counterRangeMax]="1200"
+                                            [formControl]="contGroup.controls['reparationsPerHour']">
+                                    </InputNumeric>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">location lat</span>
+                                    <InputNumeric
+                                            [defaultValue]="0"
+                                            [step]="'any'"
+                                            [textholder]="'lat'"
+                                            [counterRangeMin]="-999"
+                                            [counterRangeMax]="999"
+                                            [formControl]="contGroup.controls['locationLat']">
+                                    </InputNumeric>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">location lng</span>
+                                    <InputNumeric
+                                            [defaultValue]="0"
+                                            [step]="'any'"
+                                            [textholder]="'lng'"
+                                            [counterRangeMin]="-999"
+                                            [counterRangeMax]="999"
+                                            [formControl]="contGroup.controls['locationLng']">
+                                    </InputNumeric>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">location radius</span>
+                                    <InputNumeric
+                                            [defaultValue]="10"
+                                            [round]="true"
+                                            [textholder]="'radius'"
+                                            [step]="1"
+                                            [counterRangeMin]="0"
+                                            [counterRangeMax]="1000"
+                                            [formControl]="contGroup.controls['locationRadios']">
+                                    </InputNumeric>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <ResourceViewer [resource]="resource"></ResourceViewer>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <ul *ngIf="showResourceOnly" class="list-group">
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <ResourceViewer [resource]="resource"></ResourceViewer>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

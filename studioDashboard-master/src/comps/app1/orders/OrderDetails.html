@@ -1,0 +1,164 @@
+<br/>
+<button class="btn btn-default fa fa-print" (click)="printElem()"></button>
+<div *ngIf="!selectedOrder && !loading">
+  <h2>no orders selected</h2>
+</div>
+<Loading *ngIf="loading" [size]="'75px'" [style]="{'margin-top': '250px'}"></Loading>
+<div *ngIf="selectedOrder && !loading">
+  <div *ngIf="showProgress" class="row bs-wizard" style="border-bottom:0;">
+
+	 <div class="row bs-wizard" (click)="$event.preventDefault()" style="border-bottom:0;">
+
+		<div class="col-xs-3 bs-wizard-step" [ngClass]="{complete: steps[0]}">
+		  <div class="text-center bs-wizard-stepnum">Step 1</div>
+		  <div class="progress"><div class="progress-bar"></div></div>
+		  <a href="#" class="bs-wizard-dot"></a>
+		  <div class="bs-wizard-info text-center">{{stepsDescription[0]}}</div>
+		</div>
+
+		<div class="col-xs-3 bs-wizard-step" [ngClass]="{complete: steps[1]}">
+		  <div class="text-center bs-wizard-stepnum">Step 2</div>
+		  <div class="progress"><div class="progress-bar"></div></div>
+		  <a href="#" class="bs-wizard-dot"></a>
+		  <div class="bs-wizard-info text-center">{{stepsDescription[1]}}</div>
+		</div>
+
+		<div class="col-xs-3 bs-wizard-step" [ngClass]="{complete: steps[2]}">
+		  <div class="text-center bs-wizard-stepnum">Step 3</div>
+		  <div class="progress"><div class="progress-bar"></div></div>
+		  <a href="#" class="bs-wizard-dot"></a>
+		  <div class="bs-wizard-info text-center">{{stepsDescription[2]}}</div>
+		</div>
+
+		<div class="col-xs-3 bs-wizard-step" [ngClass]="{complete: steps[3]}">
+		  <div class="text-center bs-wizard-stepnum">Step 4</div>
+		  <div class="progress"><div class="progress-bar"></div></div>
+		  <a href="#" class="bs-wizard-dot"></a>
+		  <div class="bs-wizard-info text-center">{{stepsDescription[3]}}</div>
+		</div>
+	 </div>
+
+
+  </div>
+  <div class="row" id="printableArea">
+	 <div class="col-xs-12">
+		<div class="invoice-title">
+		  <div style="float: right">
+			 <h4>MediaSignage Inc.</h4>
+			 <h6>5776-D Lindero Cyn Rd #182</h6>
+			 <h6>Westlake Village, CA 91362 USA</h6>
+		  </div>
+		  <h2>Invoice</h2>
+		  <h5>Placed on {{selectedOrder.getDate()}}</h5>
+		  <h3 class="pull-right">Order: {{selectedOrder.getOrderId()}} </h3>
+		</div>
+		<hr/>
+		<div class="row">
+		  <div class="col-xs-6">
+			 <address>
+				<strong>Billed To:</strong><br>
+				<span class="whiteReplace">
+					{{selectedOrder.getBilling()}}
+				</span>
+			 </address>
+		  </div>
+		  <div class="col-xs-6 text-right">
+			 <address>
+				<strong>Shipped To:</strong><br>
+				<span class="whiteReplace">
+					{{selectedOrder.getShipping()}}
+				</span>
+			 </address>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-6">
+			 <address>
+				<strong>e-mail:</strong>
+				{{selectedOrder.getEmail()}}
+			 </address>
+			 <div *ngIf="showProgress">
+				<strong>tracking:</strong><br>
+				{{selectedOrder.getTracking()}}
+				<br/>
+				<br/>
+			 </div>
+		  </div>
+		  <div class="col-xs-6 text-right">
+		  </div>
+		</div>
+	 </div>
+  </div>
+
+  <div class="row">
+	 <div class="col-md-12">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			 <h3 class="panel-title"><strong>Order summary</strong></h3>
+		  </div>
+		  <div class="panel-body">
+
+
+			 <simpleGridTable #userSimpleGridTable>
+				<thead>
+				<tr>
+				  <th>product</th>
+				  <th>qty</th>
+				  <th>price</th>
+				  <th>total</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="simpleGridRecord" *ngFor="let item of products; let index=index">
+				  <td style="width: 70%" [editable]="false" [processField]="tableDesc" simpleGridData [item]="item"></td>
+				  <td style="width: 10%" [editable]="false" [processField]="tableQty" simpleGridData [item]="item"></td>
+				  <td style="width: 10%" [processField]="tablePrice" simpleGridData [item]="item"></td>
+				  <td style="width: 10%" [processField]="tableTotal" simpleGridData [item]="item"></td>
+				</tr>
+				</tbody>
+			 </simpleGridTable>
+
+
+			 <div class="table-responsive">
+				<table class="table table-condensed">
+				  <tbody>
+				  <tr>
+					 <td class="thick-line text-left"><strong>Discount</strong></td>
+					 <td class="thick-line"></td>
+					 <td class="thick-line"></td>
+					 <td class="thick-line text-right">{{selectedOrder.getDiscount()}}</td>
+				  </tr>
+				  <tr>
+					 <td class="no-line text-left"><strong>Subtotal</strong></td>
+					 <td class="no-line"></td>
+					 <td class="no-line"></td>
+					 <td class="no-line text-right">{{selectedOrder.getSubtotal()}}</td>
+				  </tr>
+				  <tr>
+					 <td class="no-line text-left"><strong>Tax</strong></td>
+					 <td class="no-line"></td>
+					 <td class="no-line"></td>
+					 <td class="no-line text-right">{{selectedOrder.getTax()}}</td>
+				  </tr>
+				  <tr>
+					 <td class="no-line text-left"><strong>Shipping</strong></td>
+					 <td class="no-line"></td>
+					 <td class="no-line"></td>
+					 <td class="no-line text-right">{{selectedOrder.getShippingTotal()}}</td>
+				  </tr>
+				  <tr>
+					 <td class="no-line text-left"><strong>Total</strong></td>
+					 <td class="no-line"></td>
+					 <td class="no-line"></td>
+					 <td class="no-line text-right">{{selectedOrder.getTotal()}}</td>
+				  </tr>
+				  </tbody>
+				</table>
+			 </div>
+		  </div>
+		</div>
+		<hr/>
+		<hr/>
+	 </div>
+  </div>
+</div>

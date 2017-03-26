@@ -1,0 +1,17 @@
+<form [formGroup]="notesForm" (ngSubmit)="onSubmitted(notesForm.value)">
+    <div class="row">
+        <div class="inner userGeneral tallPanel">
+            <div class="panel panel-default">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <input type="text" class="longInput form-control" placeholder="user name" required formControlName="userName">
+                        <input type="password" class="longInput form-control" placeholder="user password" required formControlName="userPass">
+                        <input type="text" class="longInput form-control" placeholder="amount" required formControlName="amount">
+                        <input type="text" class="longInput form-control" placeholder="comment" required formControlName="comment">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="_showSubmit" type="submit" class="btn btn-default" [disabled]="!notesForm.valid">Submit</button>
+</form>

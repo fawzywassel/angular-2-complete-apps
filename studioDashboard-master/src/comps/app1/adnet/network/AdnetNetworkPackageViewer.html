@@ -1,0 +1,35 @@
+<!--<ul>-->
+    <!--<li *ngFor="let item of packagesFiltered">{{item.getName()}} {{item.getId()}}</li>-->
+<!--</ul>-->
+<div>
+    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+    <small *ngIf="!inDevMode" class="release">Package Viewer</small>
+    <simpleGridTable>
+        <thead>
+        <tr>
+            <th [sortableHeader]="['Value','label']" [sort]="sort">name</th>
+            <th [sortableHeader]="['Value','playMode']" [sort]="sort">customer</th>
+            <th [sortableHeader]="['Value','playMode']" [sort]="sort">playMode</th>
+            <th [sortableHeader]="['Value','channel']" [sort]="sort">ch</th>
+            <th [sortableHeader]="['Value','startDate']" [sort]="sort">start</th>
+            <th [sortableHeader]="['Value','endDate']" [sort]="sort">end</th>
+            <th [sortableHeader]="['Value','hoursStart']" [sort]="sort">start</th>
+            <th [sortableHeader]="['Value','hoursEnd']" [sort]="sort">end</th>
+            <th class="width-lr" [sortableHeader]="['Value','daysMask']" [sort]="sort">days m-f</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="simpleGridRecord" (onClicked)="onContentSelect(item)" simpleGridRecord *ngFor="let item of packagesFiltered | OrderBy:sort.field:sort.desc; let index=index" [item]="item" [index]="index">
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('getName')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="getCustomerName" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('playModeName')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('channel')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('startDate')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('endDate')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('hourStart')" [item]="item"></td>
+            <td class="width-md" simpleGridData [processField]="processAdnetPackageField('hourEnd')" [item]="item"></td>
+            <td class="width-lr" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+        </tr>
+        </tbody>
+    </simpleGridTable>
+</div>

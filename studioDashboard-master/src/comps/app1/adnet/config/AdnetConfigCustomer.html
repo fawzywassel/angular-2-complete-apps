@@ -1,0 +1,117 @@
+<div>
+    <!--<Dropbox></Dropbox>-->
+    <form [formGroup]="contGroup">
+        <div class="container" style="padding-right: 170px">
+            <h3>personal configuration</h3>
+            <div class="col-xs-6">
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                    <InputString
+                            required
+                            [defaultValue]="'adnet user'"
+                            [safe]="true"
+                            [onKeyUpNotify]="false"
+                            [textholder]="'Customer name'"
+                            [stringRangeMin]="3"
+                            [stringRangeMax]="25"
+                            [formControl]="contGroup.controls['label']">
+                    </InputString>
+
+                    <!--<input [formControl]="contGroup.controls['label']" type="text" class="form-control"-->
+                    <!--placeholder="Customer name">-->
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-street-view"></i></span>
+                    <input [formControl]="contGroup.controls['contactPerson']" type="text" class="form-control"
+                           placeholder="Contact person">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-send"></i></span>
+                    <input [formControl]="contGroup.controls['contactEmail']" type="text" class="form-control"
+                           placeholder="Contact email">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input [formControl]="contGroup.controls['contactPhone']" type="text" class="form-control"
+                           placeholder="Contact phone">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                    <input [formControl]="contGroup.controls['contactCell']" type="text" class="form-control"
+                           placeholder="Contact cell">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-plug"></i></span>
+                    <input [formControl]="contGroup.controls['website']" type="text" class="form-control"
+                           placeholder="web site">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-comments"></i></span>
+                    <textarea [formControl]="contGroup.controls['comments']" style="height: 170px" type="text"
+                              class="form-control" value="" placeholder="Comments"></textarea>
+                </div>
+
+            </div>
+            <div class="col-xs-12 box">
+                <hr/>
+                <h3>settings</h3>
+                <div class="inner userGeneral">
+                    <div class="panel panel-default tallPanel">
+                        <div class="panel-heading">mediaADNET network activation
+                            <i class="fa fa-cog pull-right"></i>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Customer network
+                                <div class="material-switch pull-right">
+                                    <input (change)="onChangeSharing(customerNetwork.checked)"
+                                           formControlName="customerNetwork"
+                                           id="customerNetwork" #customerNetwork
+                                           name="customerNetwork" type="checkbox"/>
+                                    <label for="customerNetwork" class="label-primary"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Reseller network
+                                <div class="material-switch pull-right">
+                                    <input (change)="onChangeSharing(accountNetwork.checked)"
+                                           formControlName="accountNetwork"
+                                           id="accountNetwork" #accountNetwork
+                                           name="accountNetwork" type="checkbox"/>
+                                    <label for="accountNetwork" class="label-primary"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Global network
+                                <div class="material-switch pull-right">
+                                    <input (change)="onChangeSharing(globalNetwork.checked)"
+                                           formControlName="globalNetwork"
+                                           id="globalNetwork" #globalNetwork
+                                           name="globalNetwork" type="checkbox"/>
+                                    <label for="globalNetwork" class="label-primary"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Default auto enable
+                                <div class="material-switch pull-right">
+                                    <input (change)="onChangeSharing(defaultAutoActivate.checked)"
+                                           formControlName="defaultAutoActivate"
+                                           id="defaultAutoActivate" #defaultAutoActivate
+                                           name="defaultAutoActivate" type="checkbox"/>
+                                    <label for="defaultAutoActivate" class="label-primary"></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+<div>
+    <!--<button (click)="getRateTable()" class="btn-primary">Save</button>-->
+    <small *ngIf="inDevMode" class="debug">{{me}}</small>
+    <div *ngIf="adnetRateModel" class="well well-sm text-center">
+        <h5>hourly advertisement charge rates</h5>
+        <div class="btn-group" data-toggle="buttons">
+
+            <label (click)="onColor('orange')" class="btn btn-warning active">
+                <input [disabled]="readOnly" type="radio" name="options" autocomplete="off">
+                <span class="fa fa-check"></span>
+                <input [disabled]="readOnly" class="rateInput" [(ngModel)]="adHourlyRate[0]" (change)="onUpdateRate()">
+            </label>
+
+            <label (click)="onColor('green')" class="btn btn-success">
+                <input [disabled]="readOnly" type="radio" name="options" autocomplete="off">
+                <span class="fa fa-check"></span>
+                <input [disabled]="readOnly" class="rateInput" [(ngModel)]="adHourlyRate[1]" (change)="onUpdateRate()">
+            </label>
+
+            <label (click)="onColor('blue')" class="btn btn-info">
+                <input [disabled]="readOnly" type="radio" name="options" autocomplete="off">
+                <span class="fa fa-check"></span>
+                <input [disabled]="readOnly" class="rateInput" [(ngModel)]="adHourlyRate[2]" (change)="onUpdateRate()">
+            </label>
+
+            <label (click)="onColor('red')" class="btn btn-danger">
+                <input [disabled]="readOnly" type="radio" name="options" autocomplete="off">
+                <span class="fa fa-check"></span>
+                <input [disabled]="readOnly" class="rateInput" [(ngModel)]="adHourlyRate[3]" (change)="onUpdateRate()">
+            </label>
+        </div>
+    </div>
+    <!--<h4>hourly ad rate table</h4>-->
+    <div style="overflow-x: scroll">
+        <div class="rateGridContainer" style="width: 1130px; overflow-x: scroll">
+        </div>
+    </div>
+</div>

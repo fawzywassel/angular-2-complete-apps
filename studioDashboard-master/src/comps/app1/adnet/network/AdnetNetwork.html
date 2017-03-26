@@ -1,0 +1,221 @@
+<div *ngIf="adnetCustomerModel" class="row">
+    <div class="col-xs-2">
+        <AdnetNetworkCustomerSelector (onPairsSelected)="onPairSelected($event)"
+                                      (onPackageEditMode)="onPackageEditMode($event)"
+                                      (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                      [setAdnetCustomerModel]="adnetCustomerModel">
+        </AdnetNetworkCustomerSelector>
+    </div>
+    <div class="col-xs-10">
+        <tabs>
+
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+            <!-- ************************* PACKAGES TAB ************************* -->
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+
+            <tab (activated)="onTabActive('packagesTab', $event)" [tabtitle]="'Packages'">
+                <div class="row" *ngIf="(this.pairsOutgoing == true && this.pairsSelected && this.pairsSelected.size > 1) || this.pairsOutgoing == true && this.packageEditMode == true">
+                    <div class="col-xs-3">
+                        <AdnetNetworkPackageEditor (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                                   (onAdnetTargetSelected)="onAdnetTargetSelected('packagesTab',$event)"
+                                                   (onAdnetTargetsSelected)="onAdnetTargetsSelected($event)"
+                                                   (onAdnetPacakgedSelected)="onAdnetPackageSelected($event)"
+                                                   [setPairOutgoing]="pairsOutgoing"
+                                                   [setAdnetPairModels]="pairsSelected"
+                                                   [setAdnetCustomerModel]="adnetCustomerModel">
+                        </AdnetNetworkPackageEditor>
+                    </div>
+                    <div class="col-xs-6">
+                        <div style="min-height: 300px; overflow-y: scroll; height: 300px">
+                            <AdnetNetworkPackageContent (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                                        (onAdnetContentSelected)="onAdnetContentSelected('packagesTab',$event)"
+                                                        [editMode]="true"
+                                                        [setAdnetPackagePlayMode]="selectedAdnetPackagePlayMode_tab_packages"
+                                                        [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages">
+                            </AdnetNetworkPackageContent>
+                        </div>
+                        <hr/>
+                        <AdnetNetworkTarget [setAdnetTargetModels]="selectedAdnetTargetModels"
+                                            [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages"
+                                            [editMode]="true"
+                                            (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                            (onAdnetTargetSelected)="onAdnetTargetSelected('packagesTab',$event)">
+                        </AdnetNetworkTarget>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 30px; padding-right: 30px">
+                        <div style="height: 100%">
+                            <div [ngSwitch]="propSelectorPackageTab">
+                                <div *ngSwitchCase="adnetNetworkPropSelector.CONTENT">
+                                    <AdnetNetworkPackageContentProps
+                                            [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages"
+                                            [setAdnetContentModels]="selectedAdnetContentModel_tab_packages">
+                                    </AdnetNetworkPackageContentProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.PACKAGE">
+                                    <AdnetNetworkPackageProps
+                                            (playModeChanged)="onSetPlayMode('packagesTab',$event)"
+                                            [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages">
+                                    </AdnetNetworkPackageProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.RESOURCE">
+                                    <small>resource properties</small>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.TARGET">
+                                    <AdnetNetworkTargetProps [setAdnetTargetModel]="selectedAdnetTargetModel_tab_packages">
+                                    </AdnetNetworkTargetProps>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="this.pairsOutgoing == false || (this.pairsSelected && this.pairsSelected.size == 1)">
+                    <div class="col-xs-9">
+                        <div style="min-height: 300px; overflow-y: scroll; height: 300px">
+                            <div style="overflow-x: scroll">
+                                <AdnetNetworkPackageViewer
+                                        (onAdnetPackageViewSelected)="onAdnetPackageSelected($event)"
+                                        (onAdnetTargetsSelected)="onAdnetTargetsSelected($event)"
+                                        (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                        [setPairOutgoing]="pairsOutgoing"
+                                        [setAdnetPairModels]="pairsSelected"
+                                        [setAdnetCustomerModel]="adnetCustomerModel">
+                                </AdnetNetworkPackageViewer>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div style="overflow-y: auto">
+                                    <AdnetNetworkPackageContent (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                                                (onAdnetContentSelected)="onAdnetContentSelected('packagesTab',$event)"
+                                                                [setAdnetPackagePlayMode]="selectedAdnetPackagePlayMode_tab_packages"
+                                                                [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages">
+                                    </AdnetNetworkPackageContent>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div style="overflow-y: auto">
+                                    <AdnetNetworkTarget [setAdnetTargetModels]="selectedAdnetTargetModels"
+                                                        [setAdnetPackageModels]="selectedAdnetPackageModel_tab_packages"
+                                                        (onPropSelected)="onPropSelected('packagesTab', $event)"
+                                                        (onAdnetTargetSelected)="onAdnetTargetSelected('packagesTab',$event)">
+                                    </AdnetNetworkTarget>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 30px; padding-right: 30px">
+                        <div class="row">
+                            <div [ngSwitch]="propSelectorPackageTab">
+                                <div *ngSwitchCase="adnetNetworkPropSelector.PAIR">
+                                    <AdnetNetworkPairProps [setPairOutgoing]="pairsOutgoing"
+                                                           [setAdnetPairModels]="pairsSelected">
+                                    </AdnetNetworkPairProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.CONTENT">
+                                    <AdnetNetworkPackageContentProps
+                                            [showResourceOnly]="true"
+                                            [setAdnetContentModels]="selectedAdnetContentModel_tab_packages">
+                                    </AdnetNetworkPackageContentProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.TARGET">
+                                    <AdnetNetworkTargetProps [setAdnetTargetModel]="selectedAdnetTargetModel_tab_packages">
+                                    </AdnetNetworkTargetProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.PACKAGE_VIEW">
+                                    <AdnetNetworkPackageViewProps [setAdnetPackageModel]="selectedAdnetPackageModel_tab_packages">
+                                    </AdnetNetworkPackageViewProps>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+            <!-- ************************* TARGETS TAB ************************** -->
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+
+            <tab (activated)="onTabActive('targetsTab', $event)" [tabtitle]="'Targets'">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div style="min-height: 100%; overflow-y: scroll; height: 100%">
+                            <div style="overflow-x: scroll">
+                                <AdnetNetworkTarget [setAdnetPairModels]="pairsSelected"
+                                                    [setAdnetCustomerModel]="adnetCustomerModel"
+                                                    [setPairOutgoing]="pairsOutgoing"
+                                                    (onPropSelected)="onPropSelected('targetsTab', $event)"
+                                                    (onAdnetTargetSelected)="onAdnetTargetSelected('targetsTab',$event)">>
+                                </AdnetNetworkTarget>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div style="min-height: 300px; overflow-y: scroll; height: 300px">
+                            <div style="overflow-x: scroll">
+                                <AdnetNetworkPackageViewer
+                                        [setPairOutgoing]="pairsOutgoing"
+                                        [setAdnetCustomerModel]="adnetCustomerModel"
+                                        [setAdnetTargetModel]="selectedAdnetTargetModel_tab_targets"
+                                        [setAdnetPairModels]="pairsSelected"
+                                        [filterByTargetModel]="true"
+                                        (onAdnetPackageViewSelected)="onAdnetPackageSelectedTarget($event)">
+                                </AdnetNetworkPackageViewer>
+                            </div>
+                        </div>
+
+                        <AdnetNetworkPackageContent (onPropSelected)="onPropSelected('targetsTab', $event)"
+                                                    (onAdnetContentSelected)="onAdnetContentSelected('targetsTab',$event)"
+                                                    [setAdnetPackageModels]="selectedAdnetPackageModel_tab_targets"
+                                                    [setAdnetPackagePlayMode]="selectedAdnetPackagePlayMode_tab_targets">
+                        </AdnetNetworkPackageContent>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 30px; padding-right: 30px">
+                        <div style="height: 100%">
+                            <div [ngSwitch]="propSelectorTargetsTab">
+                                <div *ngSwitchCase="adnetNetworkPropSelector.CONTENT">
+                                    <AdnetNetworkPackageContentProps
+                                            [showResourceOnly]="true"
+                                            [setAdnetContentModels]="selectedAdnetContentModel_tab_targets">
+                                    </AdnetNetworkPackageContentProps>
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.PACKAGE">
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.RESOURCE">
+                                    <h1>c</h1>
+                                    <!--<small>resource properties</small>-->
+                                </div>
+                                <div *ngSwitchCase="adnetNetworkPropSelector.TARGET">
+                                    <AdnetNetworkTargetProps [setAdnetTargetModel]="selectedAdnetTargetModel_tab_targets">
+                                    </AdnetNetworkTargetProps>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+            <!-- ************************* REPORTS TAB ************************** -->
+            <!-- **************************************************************** -->
+            <!-- **************************************************************** -->
+
+            <tab [tabtitle]="'Reports'">
+                <div class="row">
+                    <AdnetReports [setPairOutgoing]="pairsOutgoing"
+                                  [setAdnetPairModels]="pairsSelected"
+                                  [setAdnetCustomerModel]="adnetCustomerModel"
+                    ></AdnetReports>
+                </div>
+            </tab>
+        </tabs>
+    </div>
+
+</div>

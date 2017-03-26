@@ -1,0 +1,49 @@
+<div class="row" *ngIf="m_selectedStation">
+  <tabs>
+	 <tab [tabtitle]="'General'">
+		<div class="col-xs-6">
+		  <form role="form" class="col-xs-6">
+			 <h2>Station location</h2>
+			 <div class="form-group">
+				<h5>public ip: {{m_selectedStation.getPublicIp()}}</h5>
+				<h5>local ip: {{m_selectedStation.getLocalIp()}}</h5>
+				<h5>lat: {{m_selectedStation.getLocation().lat}}</h5>
+				<h5>lon: {{m_selectedStation.getLocation().lon}}</h5>
+				<h5>city: {{m_selectedStation.getLocation().city}}</h5>
+				<h5>country: {{m_selectedStation.getLocation().country}}</h5>
+			 </div>
+			 <div class="form-group">
+			 </div>
+		  </form>
+		</div>
+		<form role="form" class="col-xs-6 go-right">
+		  <h2>Station details</h2>
+		  <div class="form-group">
+			 <input id="name" name="name" type="text" class="form-control" value="{{m_selectedStation.getStationName()}}">
+			 <label for="name">station name</label>
+		  </div>
+		  <div class="form-group">
+			 <textarea name="stationNotes" placeholder="station notes" class="form-control"></textarea>
+		  </div>
+		  <!--<p class="bg-success" style="padding:10px;margin-top:20px;clear:both">-->
+		  <!--<small>-->
+		  <!--<a href="http://css-tricks.com/float-labels-css/" target="_blank">Open location in google maps</a>-->
+		  <!--</small>-->
+		  <!--</p>-->
+
+		</form>
+
+	 </tab>
+	 <tab [tabtitle]="'Commands'">
+		<button class="btn btn-primary" (click)="sendSnapshot()">Snap</button>
+		<button class="btn btn-primary" (click)="sendCommand('start','SignageStudioLite')">Play</button>
+		<button class="btn btn-primary" (click)="sendCommand('stop','SignageStudioLite')">Stop</button>
+		<button class="btn btn-primary" (click)="sendCommand('rebootPlayer','SignageStudioLite')">Restart</button>
+		<button class="btn btn-primary" (click)="sendCommand('event',sendCommandInput.value)">send command</button>
+		<input placeholder="command value" #sendCommandInput/>
+		<StationSnapshot ></StationSnapshot>
+		<p style="min-height: 300px"></p>
+		<!--<imgLoader #imgLoader style="display: inline-block; padding-top: 4px" [circle]="false" [images]="snapshots" [defaultImage]="'assets/person.png'"></imgLoader>-->
+	 </tab>
+  </tabs>
+</div>

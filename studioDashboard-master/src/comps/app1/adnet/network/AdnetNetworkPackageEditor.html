@@ -1,0 +1,39 @@
+<!--<small>customers selected: {{setAdnetPairModels?.size}}</small>-->
+<!--<small>mode: {{pairOutgoing ? 'outgoing' : 'incoming' }}</small>-->
+<small *ngIf="!inDevMode" class="release">Package editor</small>
+<small *ngIf="inDevMode" class="debug">{{me}}</small>
+<div style="">
+    <accordion [closeOthers]="true">
+        <accordion-group [isOpen]="true" heading="packages">
+
+            <div style="position: relative; top: 1px">
+                <div (click)="$event.preventDefault()">
+                    <a class="btns" (click)="onAdd($event)" href="#">
+                        <span class="fa fa-plus"></span>
+                    </a>
+                    <a class="btns" (click)="onRemove($event)"
+                       [ngClass]="{disabled: !selectedAdnetPackageModel}" href="#">
+            <span class="fa fa-remove">
+            </span>
+                    </a>
+                </div>
+            </div>
+
+            <simplelist #simplelist [list]="packagesFiltered"
+                        (selected)="onSelecting($event)"
+                        [multiSelect]="false"
+                        [contentId]="getId" [content]="getName">
+            </simplelist>
+        </accordion-group>
+        <accordion-group heading="dropbox">
+            <Dropbox (onFileLinkSelected)="onDropboxFileSelected($event)"></Dropbox>
+        </accordion-group>
+        <accordion-group heading="targets">
+            <AdnetNetworkTargetSearch [setAdnetCustomerModel]="adnetCustomerModel"
+                                      [setAdnetPackageModels]="selectedAdnetPackageModel"
+                                      (onAdnetTargetSelected)="adnetTargetSelected('packagesTab',$event)"
+                                      (onPropSelected)="onTargetSearchSelected($event)">
+            </AdnetNetworkTargetSearch>
+        </accordion-group>
+    </accordion>
+</div>
